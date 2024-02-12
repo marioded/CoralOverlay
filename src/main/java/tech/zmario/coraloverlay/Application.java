@@ -3,6 +3,8 @@ package tech.zmario.coraloverlay;
 import tech.zmario.coraloverlay.utils.TextUtils;
 
 import javax.swing.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Application {
 
@@ -23,7 +25,18 @@ public class Application {
             return;
         }
 
+        ExecutorService executor = Executors.newSingleThreadExecutor(r -> {
+            Thread thread = new Thread(r);
+            thread.setName("overlay-main-executor");
+            thread.setDaemon(true);
+
+            return thread;
+        });
+
         System.out.println("Logged in as " + name + ".");
-        CoralOverlay.create(name);
+
+        executor.submit(() -> CoralOverlay.create(name));
+
+        Runtime.getRuntime().addShutdownHook(new Thread(executor::shutdown));
     }
 }
