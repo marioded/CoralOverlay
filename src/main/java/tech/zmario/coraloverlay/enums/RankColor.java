@@ -6,7 +6,7 @@ public enum RankColor {
 
     USER(new Color(0xE3E3E3)),
     VIP(new Color(0x55FF55)),
-    LEGEND(new Color(0x163EFF)),
+    LEGEND(new Color(0x4A6BFF)),
     CHAMPION(new Color(0xFFAA00)),
     FAMOUS(new Color(0xFF55FF)),
     YOUTUBE(new Color(0xFFAA00)),
