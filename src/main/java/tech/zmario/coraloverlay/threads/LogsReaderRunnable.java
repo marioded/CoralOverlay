@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class LogsReaderRunnable implements Runnable {
 
@@ -52,10 +53,12 @@ public class LogsReaderRunnable implements Runnable {
         if (logsFilePath == null || !logsFilePath.toFile().exists()) return;
 
         try {
-            List<String> lines = Files.readAllLines(logsFilePath, StandardCharsets.ISO_8859_1);
+            List<String> lines = Files.readAllLines(logsFilePath, StandardCharsets.ISO_8859_1)
+                            .stream().filter(line -> line != null && !line.isEmpty() && !line.isBlank())
+                            .collect(Collectors.toList());
 
             Collections.reverse(lines);
-            lines = lines.subList(0, Math.min(lines.size(), 4));
+            lines = lines.subList(0, Math.min(lines.size(), 3));
 
             for (String line : lines) {
                 if (line.isEmpty() || line.isBlank()) continue;
