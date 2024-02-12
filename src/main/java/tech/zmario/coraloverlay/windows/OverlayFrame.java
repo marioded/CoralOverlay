@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.concurrent.*;
 
 public class OverlayFrame extends JFrame {
 
@@ -82,13 +81,13 @@ public class OverlayFrame extends JFrame {
         });
     }
 
+    public static OverlayFrame create(CoralOverlay coralOverlay) {
+        return new OverlayFrame(coralOverlay);
+    }
+
     private void click(Robot robot, int vkTab) {
         robot.keyPress(vkTab);
         robot.keyRelease(vkTab);
-    }
-
-    public static OverlayFrame create(CoralOverlay coralOverlay) {
-        return new OverlayFrame(coralOverlay);
     }
 
     public void start() {
@@ -187,6 +186,11 @@ public class OverlayFrame extends JFrame {
     public void addPlayer(String playerName) {
         if (playerName.isEmpty() || playerName.isBlank() || userManager.getPlayerNames().contains(playerName) ||
                 playerName.equalsIgnoreCase(coralOverlay.getPlayerName())) return;
+
+        try {
+            Thread.sleep(30L);
+        } catch (InterruptedException e) {
+        }
 
         userManager.getPlayerNames().add(playerName);
         userManager.getUser(playerName).thenAccept(bedWarsUser -> userManager.getPrefix(playerName).thenAccept(prefix -> {
