@@ -8,7 +8,6 @@ import tech.zmario.coraloverlay.utils.TextUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -118,7 +117,6 @@ public class OverlayFrame extends JFrame {
     public void update() {
         for (String playerName : userManager.getPlayerNames()) addPlayer(playerName);
 
-        //new UpdateRunnable(coralOverlay);
         new LogsReaderRunnable(coralOverlay);
     }
 

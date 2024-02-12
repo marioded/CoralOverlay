@@ -86,9 +86,7 @@ public class LogsReaderRunnable implements Runnable {
                 } else if (line.startsWith("(Da " + coralOverlay.getPlayerName() + ")")) {
                     String[] playerNamesArray = Arrays.copyOfRange(args, 2, args.length);
 
-                    for (String playerName : playerNamesArray) {
-                        overlayFrame.addPlayer(playerName);
-                    }
+                    for (String playerName : playerNamesArray) overlayFrame.addPlayer(playerName);
                 } else if (line.endsWith(" è caduto nel vuoto.")) {
                     String playerName = args[0];
 

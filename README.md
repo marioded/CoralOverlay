@@ -37,9 +37,9 @@ momento.
 
 ### **GUI applicazione**
 
-- **Click sinistro premuto sul logo di CoralMC**: Muovi la position dell'overlay
-- **Click destro premuto sul logo di CoralMC**: Minimizza l'overlay/applicazione
-- **Click sulla rotellina sul logo di CoralMC**: Chiudi e disabilita l'overlay/applicazione
+- **Click sinistro premuto sul logo di CoralMC**: Muovi la posizione dell'overlay
+- **Click destro sul logo di CoralMC**: Minimizza l'overlay
+- **Click sulla rotellina sul logo di CoralMC**: Chiudi e termina l'overlay
 
 ## Preview
 
@@ -51,4 +51,5 @@ Non ci sono funzionalità in progettazione al momento.
 
 ## Supporto
 
-Se hai bisogno di aiuto o hai trovato un bug, puoi contattarmi nel mio server Discord: https://discord.gg/KHtC5FTW6z. Ricorda di scrivere nella categoria CoralOverlay per una risposta più veloce.
+Se hai bisogno di aiuto o hai trovato un bug, puoi contattarmi nel mio server Discord: https://discord.gg/KHtC5FTW6z.
+Ricorda di scrivere nella categoria CoralOverlay per una risposta più veloce.
