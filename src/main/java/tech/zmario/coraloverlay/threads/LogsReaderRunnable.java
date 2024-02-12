@@ -38,24 +38,23 @@ public class LogsReaderRunnable implements Runnable {
 
         executor.scheduleWithFixedDelay(this, 30, 30, TimeUnit.MILLISECONDS);
         Runtime.getRuntime().addShutdownHook(new Thread(executor::shutdown));
-    }
 
-    @Override
-    public void run() {
-        if (!logsFilePath.toFile().exists()) {
+        if (logsFilePath == null || !logsFilePath.toFile().exists()) {
             JOptionPane.showMessageDialog(null, "Non è stato trovato il file di log di Minecraft. " +
                             "Assicurati di averlo installato e di averlo avviato almeno una volta.",
                     "CoralOverlay", JOptionPane.ERROR_MESSAGE, TextUtils.LOGO_RESIZED);
             System.exit(0);
-            return;
         }
+    }
+
+    @Override
+    public void run() {
+        if (logsFilePath == null || !logsFilePath.toFile().exists()) return;
 
         try {
             List<String> lines = Files.readAllLines(logsFilePath, StandardCharsets.ISO_8859_1);
 
             Collections.reverse(lines);
-
-            // get last 2 lines
             lines = lines.subList(0, Math.min(lines.size(), 4));
 
             for (String line : lines) {
@@ -73,6 +72,7 @@ public class LogsReaderRunnable implements Runnable {
                 line = String.join(" ", args);
 
                 if (line.isEmpty() || line.isBlank()) continue;
+                String owner = coralOverlay.getPlayerName();
 
                 if (line.contains("è uscito (") || line.endsWith("FINAL KILL!")) {
                     String playerName = args[0];
@@ -83,7 +83,10 @@ public class LogsReaderRunnable implements Runnable {
                 } else if (line.startsWith("(Da " + coralOverlay.getPlayerName() + ")")) {
                     String[] playerNamesArray = Arrays.copyOfRange(args, 2, args.length);
 
-                    for (String playerName : playerNamesArray) overlayFrame.addPlayer(playerName);
+                    for (String playerName : playerNamesArray) {
+                        overlayFrame.addPlayer(playerName);
+                        Thread.sleep(10L);
+                    }
                 } else if (line.contains("LETTO DISTRUTTO")) {
                     String playerName = args[args.length - 1]
                             .replace("!", "")
@@ -94,6 +97,15 @@ public class LogsReaderRunnable implements Runnable {
                     String playerName = args[0];
 
                     overlayFrame.addPlayer(playerName);
+                } else if (line.contains(", " + owner) && !line.contains(":")) {
+                    String[] split = line.split(", ");
+
+                    for (String playerName : split) {
+                        if (playerName.contains(owner)) continue;
+
+                        overlayFrame.addPlayer(playerName);
+                        Thread.sleep(20L);
+                    }
                 } else if (line.contains("è entrato nella lobby")) overlayFrame.clearAll();
                 else continue;
 

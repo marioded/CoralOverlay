@@ -9,14 +9,16 @@ Il primo overlay per CoralMC è finalmente disponibile! Questo overlay ti permet
 - [x] Riconosce i membri dello staff e mostra il loro rank
 - [x] Riconosce il client con cui giochi in automatico (supporta Badlion Client, Lunar Client, Forge, Fabric, LabyMod, PvPLounge, Optifine e Vanilla)
 - [x] Possiede una GUI semplice e intuitiva
+- [x] Colori in base al livello, all'FKDR e al WLR
 
 ## Installazione
 
 1. Scarica il file jar o exe dai [releases (clicca qui)](https://github.com/zMario34/coraloverlay/releases)
 2. Avvia il file e inserisci il tuo nome utente quando richiesto
-3. Fatto! Ora entra in una partita e goditi l'overlay
+3. Ora entra in una partita.
+4. Apri la chat, **clicca spazio** e poi **TAB** per poter rilevare i giocatori in partita.
 
-**Nota:** I giocatori vengono rilevati in automatico solo se entrano DOPO di te nella partita poiché non c'è un modo per rilevare i giocatori già presenti in partita (è in progetto un modo per evitare ciò). Puoi comunque aggiungerli manualmente facendo **/msg <il tuo nome> <giocatore1> <giocatore2> ecc.**
+**Nota:** I giocatori vengono rilevati in automatico (senza dover fare il procedimento al punto 4) solo se entrano dopo di te nella partita poiché non c'è un modo per rilevare i giocatori già presenti in partita.
 
 ## Note da sapere
 

@@ -56,27 +56,25 @@ public class TextUtils {
     }
 
     public static Color colorizeLevel(int level) { // else if chains!
-        if (level < 200) {
+        if (level < 100) {
             return Color.WHITE;
+        } else if (level < 200) {
+            return Color.GREEN;
         } else if (level < 300) {
             return Color.YELLOW;
         } else if (level < 400) {
             return Color.ORANGE;
         } else if (level < 500) {
-            return Color.RED;
-        } else if (level < 600) {
             return Color.PINK;
-        } else if (level < 700) {
+        } else if (level < 600) {
             return Color.MAGENTA;
-        } else if (level < 800) {
+        } else if (level < 700) {
             return Color.CYAN;
-        } else if (level < 900) {
+        } else if (level < 800) {
             return Color.BLUE;
-        } else if (level < 1000) {
-            return Color.GREEN;
         }
 
-        return Color.GRAY;
+        return Color.RED;
     }
 
     public static int extractMaxPlayers(String[] args) {
@@ -88,5 +86,33 @@ public class TextUtils {
         }
 
         return 8;
+    }
+
+    public static Color getFKDRColor(double fkdr) {
+        if (fkdr < 1.5) {
+            return Color.WHITE;
+        } else if (fkdr < 2.5) {
+            return Color.GREEN;
+        } else if (fkdr < 5) {
+            return Color.YELLOW;
+        } else if (fkdr < 7.0) {
+            return Color.ORANGE;
+        } else {
+            return Color.RED;
+        }
+    }
+
+    public static Color getWLRColor(double wlr) {
+        if (wlr < 0.3) {
+            return Color.WHITE;
+        } else if (wlr < 0.5) {
+            return Color.GREEN;
+        } else if (wlr < 0.9) {
+            return Color.YELLOW;
+        } else if (wlr < 1.5) {
+            return Color.ORANGE;
+        } else {
+            return Color.RED;
+        }
     }
 }

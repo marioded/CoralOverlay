@@ -8,9 +8,11 @@ import tech.zmario.coraloverlay.utils.TextUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.concurrent.*;
 
 public class OverlayFrame extends JFrame {
 
@@ -37,6 +39,7 @@ public class OverlayFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBackground(new Color(0, 0, 0, 0));
         setAlwaysOnTop(true);
+
         setLocation(20, 20);
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 20));
 
@@ -53,15 +56,35 @@ public class OverlayFrame extends JFrame {
                 xOffset = event.getX();
                 yOffset = event.getY();
             }
-        });
 
-        addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
                 if (event.getButton() == 3) setExtendedState(Frame.ICONIFIED);
                 else if (event.getButton() == 2) System.exit(0);
+                else {
+                    Timer timer = new Timer(500, e -> {
+                        // make the user click T
+                        Robot robot = null;
+
+                        try {
+                            robot = new Robot();
+                        } catch (AWTException e1) {
+                            e1.printStackTrace();
+                        }
+
+                        click(robot, KeyEvent.VK_T);
+                        click(robot, KeyEvent.VK_TAB);
+
+
+                    });
+                }
             }
         });
+    }
+
+    private void click(Robot robot, int vkTab) {
+        robot.keyPress(vkTab);
+        robot.keyRelease(vkTab);
     }
 
     public static OverlayFrame create(CoralOverlay coralOverlay) {
@@ -180,8 +203,8 @@ public class OverlayFrame extends JFrame {
             playersPanel.add(TextUtils.label(name, 0, 0, 21, rankColor.getColor()));
             tagPanel.add(TextUtils.label("[" + bedWarsUser.getLevel() + "S]", 0, 0, 21, levelColor));
             streakPanel.add(TextUtils.label(bedWarsUser.getWinStreak() + "", 0, 0, 21, textColor));
-            fkdrPanel.add(TextUtils.label(fkdr + "", 0, 0, 21, textColor));
-            wlrPanel.add(TextUtils.label(wlr + "", 0, 0, 21, textColor));
+            fkdrPanel.add(TextUtils.label(fkdr + "", 0, 0, 21, TextUtils.getFKDRColor(fkdr)));
+            wlrPanel.add(TextUtils.label(wlr + "", 0, 0, 21, TextUtils.getWLRColor(wlr)));
             finalsPanel.add(TextUtils.label(bedWarsUser.getFinalKills() + "", 0, 0, 21, textColor));
             winsPanel.add(TextUtils.label(bedWarsUser.getWins() + "", 0, 0, 21, textColor));
         }));

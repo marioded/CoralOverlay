@@ -34,7 +34,6 @@ public class UpdateRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Running UpdateRunnable");
         UserManager userManager = coralOverlay.getUserManager();
         List<String> playerNames = userManager.getPlayerNames();
 
