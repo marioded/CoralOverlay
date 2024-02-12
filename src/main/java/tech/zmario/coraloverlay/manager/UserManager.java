@@ -33,15 +33,6 @@ public class UserManager {
 
     public UserManager() {
         this.httpClient = HttpClient.newHttpClient();
-
-        if (false) {
-            loadedPlayers.add("UltimateITA");
-            loadedPlayers.add("Ytnoos");
-            loadedPlayers.add("zMario34");
-            loadedPlayers.add("DavideTW");
-            loadedPlayers.add("marchitobebee");
-            loadedPlayers.add("robaacasoososo");
-        }
     }
 
     public CompletableFuture<BedWarsUser> getUser(String username) {

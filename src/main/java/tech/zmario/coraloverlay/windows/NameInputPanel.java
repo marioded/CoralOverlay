@@ -32,8 +32,4 @@ public class NameInputPanel extends JOptionPane {
     public static NameInputPanel create() {
         return new NameInputPanel();
     }
-
-    public String getName() {
-        return (String) getInputValue();
-    }
 }

@@ -98,6 +98,21 @@ public class OverlayFrame extends JFrame {
         setVisible(true);
         setSize(900, 700);
         update();
+
+        if (false) loadDefaultPlayers(); // debug
+    }
+
+    private void loadDefaultPlayers() {
+        addPlayer("UltimateITA");
+        addPlayer("Ytnoos");
+        addPlayer("zMario34");
+        addPlayer("DavideTW");
+        addPlayer("marchitobebee");
+        addPlayer("DrElu");
+        addPlayer("MelaOp");
+        addPlayer("asynchunk");
+        addPlayer("playerindisguise");
+        addPlayer("Jamaicah");
     }
 
     public void update() {

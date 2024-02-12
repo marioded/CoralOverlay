@@ -8,7 +8,7 @@ import javax.swing.*;
 public class Application {
 
     public static void main(String[] args) {
-        String name = NameInputPanel.create().getName();
+        String name = NameInputPanel.create().getInputValue().toString();
 
         if (name.isEmpty() || name.isBlank()) {
             JOptionPane.showMessageDialog(null, "Il nome non può essere vuoto.",
