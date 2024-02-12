@@ -54,8 +54,8 @@ public class LogsReaderRunnable implements Runnable {
 
         try {
             List<String> lines = Files.readAllLines(logsFilePath, StandardCharsets.ISO_8859_1)
-                            .stream().filter(line -> line != null && !line.isEmpty() && !line.isBlank())
-                            .collect(Collectors.toList());
+                    .stream().filter(line -> line != null && !line.isEmpty() && !line.isBlank())
+                    .collect(Collectors.toList());
 
             Collections.reverse(lines);
             lines = lines.subList(0, Math.min(lines.size(), 3));
@@ -88,14 +88,7 @@ public class LogsReaderRunnable implements Runnable {
 
                     for (String playerName : playerNamesArray) {
                         overlayFrame.addPlayer(playerName);
-                        Thread.sleep(10L);
                     }
-                } else if (line.contains("LETTO DISTRUTTO")) {
-                    String playerName = args[args.length - 1]
-                            .replace("!", "")
-                            .replace(".", "");
-
-                    overlayFrame.addPlayer(playerName);
                 } else if (line.endsWith(" è caduto nel vuoto.")) {
                     String playerName = args[0];
 
@@ -107,7 +100,6 @@ public class LogsReaderRunnable implements Runnable {
                         if (playerName.contains(owner)) continue;
 
                         overlayFrame.addPlayer(playerName);
-                        Thread.sleep(20L);
                     }
                 } else if (line.contains("è entrato nella lobby")) overlayFrame.clearAll();
                 else continue;
