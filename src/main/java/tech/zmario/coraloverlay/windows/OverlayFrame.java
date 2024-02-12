@@ -60,34 +60,12 @@ public class OverlayFrame extends JFrame {
             public void mouseClicked(MouseEvent event) {
                 if (event.getButton() == 3) setExtendedState(Frame.ICONIFIED);
                 else if (event.getButton() == 2) System.exit(0);
-                else {
-                    Timer timer = new Timer(500, e -> {
-                        // make the user click T
-                        Robot robot = null;
-
-                        try {
-                            robot = new Robot();
-                        } catch (AWTException e1) {
-                            e1.printStackTrace();
-                        }
-
-                        click(robot, KeyEvent.VK_T);
-                        click(robot, KeyEvent.VK_TAB);
-
-
-                    });
-                }
             }
         });
     }
 
     public static OverlayFrame create(CoralOverlay coralOverlay) {
         return new OverlayFrame(coralOverlay);
-    }
-
-    private void click(Robot robot, int vkTab) {
-        robot.keyPress(vkTab);
-        robot.keyRelease(vkTab);
     }
 
     public void start() {
