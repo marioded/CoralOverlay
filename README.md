@@ -47,4 +47,8 @@ momento.
 
 ## In progetto
 
-- [ ] Aggiungere la possibilità di vedere le statistiche dei giocatori entrati prima di se stessi
+Non ci sono funzionalità in progettazione al momento.
+
+## Supporto
+
+Se hai bisogno di aiuto o hai trovato un bug, puoi contattarmi nel mio server Discord: https://discord.gg/KHtC5FTW6z. Ricorda di scrivere nella categoria CoralOverlay per una risposta più veloce.
