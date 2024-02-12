@@ -21,6 +21,10 @@ public class CoralOverlay extends JFrame {
         start();
     }
 
+    public static void create(String playerName) {
+        new CoralOverlay(playerName);
+    }
+
     protected void start() {
         overlayFrame.start();
 
@@ -47,9 +51,5 @@ public class CoralOverlay extends JFrame {
 
     public String getPlayerName() {
         return playerName;
-    }
-
-    public static CoralOverlay create(String playerName) {
-        return new CoralOverlay(playerName);
     }
 }

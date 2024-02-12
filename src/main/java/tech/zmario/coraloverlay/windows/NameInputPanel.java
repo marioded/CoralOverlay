@@ -29,11 +29,11 @@ public class NameInputPanel extends JOptionPane {
         dialog.dispose();
     }
 
-    public String getName() {
-        return (String) getInputValue();
-    }
-
     public static NameInputPanel create() {
         return new NameInputPanel();
+    }
+
+    public String getName() {
+        return (String) getInputValue();
     }
 }

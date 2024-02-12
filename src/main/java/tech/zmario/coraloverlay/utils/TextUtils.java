@@ -19,9 +19,8 @@ public class TextUtils {
 
     static {
         try {
-            LOGO_RESIZED = new ImageIcon(new ImageIcon(CoralOverlay.class.getResource("/coral.png"))
-                    .getImage().getScaledInstance(110, 70, Image.SCALE_SMOOTH));
-
+            LOGO_RESIZED = new ImageIcon(new ImageIcon(CoralOverlay.class.getResource("/coral.png")).getImage()
+                    .getScaledInstance(110, 70, Image.SCALE_SMOOTH));
             MINECRAFT_FONT = Font.createFont(Font.TRUETYPE_FONT, CoralOverlay.class.getResourceAsStream("/minecraftia.ttf"));
 
             GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(MINECRAFT_FONT);
@@ -33,7 +32,7 @@ public class TextUtils {
     private TextUtils() {
     }
 
-    public static JLabel createLabel(String text, int x, int y, int size, Color color) {
+    public static JLabel label(String text, int x, int y, int size, Color color) {
         JLabel label = new JLabel();
 
         label.setFont(MINECRAFT_FONT.deriveFont(Font.PLAIN, size - 5));
@@ -56,7 +55,7 @@ public class TextUtils {
         return RankColor.getRankColor(prefix);
     }
 
-    public static Color colorizeLevel(int level) {
+    public static Color colorizeLevel(int level) { // else if chains!
         if (level < 200) {
             return Color.WHITE;
         } else if (level < 300) {

@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.Arrays;
 
 public class OverlayFrame extends JFrame {
 
@@ -65,17 +64,21 @@ public class OverlayFrame extends JFrame {
         });
     }
 
+    public static OverlayFrame create(CoralOverlay coralOverlay) {
+        return new OverlayFrame(coralOverlay);
+    }
+
     public void start() {
         ImageIcon icon = TextUtils.LOGO_RESIZED;
         JLabel iconLabel = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(110, 60, Image.SCALE_SMOOTH)));
 
-        JLabel playersLabel = TextUtils.createLabel("<b>GIOCATORI</b>", 0, 0, 21, Color.CYAN);
-        JLabel tagLabel = TextUtils.createLabel("<b>LIVELLO</b>", 0, 20, 21, Color.CYAN);
-        JLabel streakLabel = TextUtils.createLabel("<b>STRK</b>", 0, 0, 21, Color.CYAN);
-        JLabel fkdrLabel = TextUtils.createLabel("<b>FKDR</b>", 0, 0, 21, Color.CYAN);
-        JLabel wlrLabel = TextUtils.createLabel("<b>WLR</b>", 0, 0, 21, Color.CYAN);
-        JLabel finals = TextUtils.createLabel("<b>FNLS</b>", 0, 0, 21, Color.CYAN);
-        JLabel winsLabel = TextUtils.createLabel("<b>WINS</b>", 0, 0, 21, Color.CYAN);
+        JLabel playersLabel = TextUtils.label("<b>GIOCATORI</b>", 0, 0, 21, Color.WHITE);
+        JLabel tagLabel = TextUtils.label("<b>LIVELLO</b>", 0, 20, 21, Color.WHITE);
+        JLabel streakLabel = TextUtils.label("<b>STRK</b>", 0, 0, 21, Color.WHITE);
+        JLabel fkdrLabel = TextUtils.label("<b>FKDR</b>", 0, 0, 21, Color.WHITE);
+        JLabel wlrLabel = TextUtils.label("<b>WLR</b>", 0, 0, 21, Color.WHITE);
+        JLabel finals = TextUtils.label("<b>FNLS</b>", 0, 0, 21, Color.WHITE);
+        JLabel winsLabel = TextUtils.label("<b>WINS</b>", 0, 0, 21, Color.WHITE);
 
         playersPanel.add(playersLabel);
         tagPanel.add(tagLabel);
@@ -91,7 +94,7 @@ public class OverlayFrame extends JFrame {
         setIconImage(icon.getImage());
 
         pack();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(Frame.MAXIMIZED_BOTH);
         setVisible(true);
         setSize(900, 700);
         update();
@@ -144,6 +147,10 @@ public class OverlayFrame extends JFrame {
     }
 
     public void addPlayer(String playerName) {
+        if (playerName.isEmpty() || playerName.isBlank() || userManager.getPlayerNames().contains(playerName) ||
+                playerName.equalsIgnoreCase(coralOverlay.getPlayerName())) return;
+
+        userManager.getPlayerNames().add(playerName);
         userManager.getUser(playerName).thenAccept(bedWarsUser -> userManager.getPrefix(playerName).thenAccept(prefix -> {
             double fkdr = Math.round((double) bedWarsUser.getFinalKills() / (double) bedWarsUser.getFinalDeaths() * 100.0) / 100.0;
             double wlr = Math.round((double) bedWarsUser.getWins() / (double) bedWarsUser.getPlayed() * 100.0) / 100.0;
@@ -155,17 +162,19 @@ public class OverlayFrame extends JFrame {
 
             Color textColor = RankColor.USER.getColor();
 
-            playersPanel.add(TextUtils.createLabel(name, 0, 0, 21, rankColor.getColor()));
-            tagPanel.add(TextUtils.createLabel("[" + bedWarsUser.getLevel() + "S]", 0, 0, 21, levelColor));
-            streakPanel.add(TextUtils.createLabel(bedWarsUser.getWinStreak() + "", 0, 0, 21, textColor));
-            fkdrPanel.add(TextUtils.createLabel(fkdr + "", 0, 0, 21, textColor));
-            wlrPanel.add(TextUtils.createLabel(wlr + "", 0, 0, 21, textColor));
-            finalsPanel.add(TextUtils.createLabel(bedWarsUser.getFinalKills() + "", 0, 0, 21, textColor));
-            winsPanel.add(TextUtils.createLabel(bedWarsUser.getWins() + "", 0, 0, 21, textColor));
+            playersPanel.add(TextUtils.label(name, 0, 0, 21, rankColor.getColor()));
+            tagPanel.add(TextUtils.label("[" + bedWarsUser.getLevel() + "S]", 0, 0, 21, levelColor));
+            streakPanel.add(TextUtils.label(bedWarsUser.getWinStreak() + "", 0, 0, 21, textColor));
+            fkdrPanel.add(TextUtils.label(fkdr + "", 0, 0, 21, textColor));
+            wlrPanel.add(TextUtils.label(wlr + "", 0, 0, 21, textColor));
+            finalsPanel.add(TextUtils.label(bedWarsUser.getFinalKills() + "", 0, 0, 21, textColor));
+            winsPanel.add(TextUtils.label(bedWarsUser.getWins() + "", 0, 0, 21, textColor));
         }));
     }
 
     public void removePlayer(String playerName) {
+        if (!userManager.getPlayerNames().remove(playerName)) return;
+
         for (Component component : playersPanel.getComponents()) {
             if (((JLabel) component).getText().contains(playerName)) {
                 int index = playersPanel.getComponentZOrder(component);
@@ -210,9 +219,5 @@ public class OverlayFrame extends JFrame {
         if (maxPlayers > 0 && newPlayers != maxPlayers) clearAll();
 
         maxPlayers = newPlayers;
-    }
-
-    public static OverlayFrame create(CoralOverlay coralOverlay) {
-        return new OverlayFrame(coralOverlay);
     }
 }

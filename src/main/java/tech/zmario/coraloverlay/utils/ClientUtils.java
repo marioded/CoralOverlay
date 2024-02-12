@@ -31,6 +31,9 @@ public class ClientUtils {
 
         files.sort((f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()));
 
-        return files.get(0) == null ? null : files.get(0).toPath();
+        Path path = files.get(0) == null ? null : files.get(0).toPath();
+
+        System.out.println("Detected client path: " + path);
+        return path;
     }
 }
