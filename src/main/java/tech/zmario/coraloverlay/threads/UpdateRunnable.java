@@ -53,8 +53,8 @@ public class UpdateRunnable implements Runnable {
 
                 int finalI = i;
                 userManager.getUser(playerName).thenAccept(bedWarsUser -> userManager.getPrefix(playerName).thenAccept(prefix -> {
-                    double fkdr = Math.round((double) bedWarsUser.getFinalKills() / (double) bedWarsUser.getFinalDeaths() * 100.0) / 100.0;
-                    double wlr = Math.round((double) bedWarsUser.getWins() / (double) bedWarsUser.getPlayed() * 100.0) / 100.0;
+                    double fkdr = Math.round((double) Math.max(bedWarsUser.getFinalKills(), 1) / (double) Math.max(bedWarsUser.getFinalDeaths(), 1) * 100.0) / 100.0;
+                    double wlr = Math.round((double) Math.max(bedWarsUser.getWins(), 1) / (double) Math.max(1, bedWarsUser.getPlayed()) * 100.0) / 100.0;
 
                     setText(tagPanel, "[" + bedWarsUser.getLevel() + "*]", finalI);
                     setText(streakPanel, bedWarsUser.getWinStreak() + "", finalI);
