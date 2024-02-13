@@ -10,7 +10,7 @@ public enum RankColor {
     CHAMPION(new Color(0xFFAA00)),
     FAMOUS(new Color(0xFF55FF)),
     YOUTUBE(new Color(0xFFAA00)),
-    STRAMER(new Color(0xAA00AA)),
+    STREAMER(new Color(0xAA00AA)),
     BUILDER(new Color(0xFFFF55)),
     HELPER(new Color(0x00AA00)),
     MOD(new Color(0x00AAAA)),
