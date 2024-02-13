@@ -9,6 +9,9 @@ import java.util.concurrent.Executors;
 public class Application {
 
     public static void main(String[] args) {
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tT] [%4$s] %5$s%6$s%n");
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
@@ -33,7 +36,7 @@ public class Application {
             return thread;
         });
 
-        System.out.println("Logged in as " + name + ".");
+        CoralOverlay.LOGGER.info("Starting CoralOverlay for " + name);
 
         executor.submit(() -> CoralOverlay.create(name));
 

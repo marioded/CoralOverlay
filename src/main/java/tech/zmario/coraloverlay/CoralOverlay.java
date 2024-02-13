@@ -5,8 +5,11 @@ import tech.zmario.coraloverlay.windows.OverlayFrame;
 
 import javax.swing.*;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class CoralOverlay extends JFrame {
+
+    public static final Logger LOGGER = Logger.getLogger("CoralOverlay");
 
     private final String playerName;
 

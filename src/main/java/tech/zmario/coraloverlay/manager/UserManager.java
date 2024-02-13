@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import tech.zmario.coraloverlay.CoralOverlay;
 import tech.zmario.coraloverlay.objects.BedWarsUser;
 import tech.zmario.coraloverlay.objects.StatsUser;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 public class UserManager {
 
@@ -38,23 +40,26 @@ public class UserManager {
     public CompletableFuture<BedWarsUser> getUser(String username) {
         userCache.cleanUp();
 
-        System.out.println("Getting user " + username);
+        CoralOverlay.LOGGER.info("Getting user " + username);
 
         if (userCache.asMap().containsKey(username))
             return CompletableFuture.completedFuture(userCache.getIfPresent(username));
 
-        return makeRequest(String.format(USER_ENDPOINT, username)).thenApply(response -> {
-            System.out.println("Got response for " + username);
-            BedWarsUser user = response.statusCode() != 200 ?
-                    new BedWarsUser() :
-                    GSON.fromJson(response.body(), StatsUser.class).getBedWarsUser();
+        return makeRequest(String.format(USER_ENDPOINT, username))
+                .exceptionally(throwable -> {
+                    CoralOverlay.LOGGER.log(Level.SEVERE, "Failed to get user " + username, throwable);
+                    return null;
+                })
+                .thenApply(response -> {
+                    CoralOverlay.LOGGER.info("Got user " + username + " with status code " + response.statusCode());
 
-            userCache.put(username, user);
-            return user;
-        }).exceptionally(throwable -> {
-            throwable.printStackTrace();
-            return null;
-        });
+                    BedWarsUser user = response.statusCode() != 200 ?
+                            new BedWarsUser() :
+                            GSON.fromJson(response.body(), StatsUser.class).getBedWarsUser();
+
+                    userCache.put(username, user);
+                    return user;
+                });
     }
 
     private CompletableFuture<HttpResponse<String>> makeRequest(String format) {
@@ -63,22 +68,22 @@ public class UserManager {
     }
 
     public CompletableFuture<String> getPrefix(String userName) {
-        return makeRequest(String.format(INFO_ENDPOINT, userName))
-                .thenApply(response -> {
-                    if (response.statusCode() != 200) return "disguised";
-                    JsonElement jsonElement = JsonParser.parseString(response.body());
+        return makeRequest(String.format(INFO_ENDPOINT, userName)).thenApply(response -> {
+            if (response.statusCode() != 200) return "disguised";
+            JsonElement jsonElement = JsonParser.parseString(response.body());
 
-                    if (!jsonElement.isJsonObject()) return "disguised";
-                    JsonObject jsonObject = jsonElement.getAsJsonObject();
+            if (!jsonElement.isJsonObject()) return "disguised";
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-                    JsonElement prefix;
-                    if (!jsonObject.has("vipBedwars"))
-                        prefix = jsonObject.get("globalRank");
-                    else
-                        prefix = jsonObject.get("vipBedwars");
+            JsonElement prefix;
+            if (!jsonObject.has("vipBedwars"))
+                prefix = jsonObject.get("globalRank");
+            else
+                prefix = jsonObject.get("vipBedwars");
 
-                    return prefix.getAsString().split("\\.", 3)[2];
-                });
+            CoralOverlay.LOGGER.info("Got prefix " + prefix.getAsString() + " for " + userName);
+            return prefix.getAsString().split("\\.", 3)[2];
+        });
     }
 
     public List<String> getPlayerNames() {

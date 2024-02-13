@@ -140,7 +140,7 @@ public class OverlayFrame extends JFrame {
                 playerName.equalsIgnoreCase(coralOverlay.getPlayerName())) return;
 
         try {
-            Thread.sleep(30L);
+            Thread.sleep(35L);
         } catch (InterruptedException e) {
         }
 

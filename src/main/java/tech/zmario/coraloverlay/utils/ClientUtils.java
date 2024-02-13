@@ -1,5 +1,7 @@
 package tech.zmario.coraloverlay.utils;
 
+import tech.zmario.coraloverlay.CoralOverlay;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -33,7 +35,8 @@ public class ClientUtils {
 
         Path path = files.get(0) == null ? null : files.get(0).toPath();
 
-        System.out.println("Detected client path: " + path);
+        CoralOverlay.LOGGER.info("Detected client path: " + path);
+
         return path;
     }
 }
