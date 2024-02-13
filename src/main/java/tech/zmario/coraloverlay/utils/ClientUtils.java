@@ -13,25 +13,25 @@ public class ClientUtils {
     }
 
     public static Path detectClient() {
-        String homedir = System.getProperty("user.home");
+        String homeDir = System.getProperty("user.home");
 
         // directories from https://github.com/Chit132/abyss-overlay/blob/2fbcf85518185a83b9f7857217df679165ca7df6/src/clients.js#L6
 
         List<File> files = Lists.newArrayList(
-                new File(homedir + "/Library/Application Support/minecraft/logs/blclient/minecraft/latest.log"),
-                new File(homedir + "/Library/Application Support/minecraft/logs/latest.log"),
-                new File(homedir + "/Library/Application Support/.pvplounge/logs/latest.log"),
-                new File(homedir + "/Library/Application Support/minecraft/logs/fml-client-latest.log"),
-                new File(homedir + "/Library/Application Support/minecraft/logs/latest.log"),
-                new File(homedir + "/AppData/Roaming/.minecraft/logs/blclient/minecraft/latest.log"),
-                new File(homedir + "/AppData/Roaming/.minecraft/logs/latest.log"),
-                new File(homedir + "/AppData/Roaming/.pvplounge/logs/latest.log"),
-                new File(homedir + "/AppData/Roaming/.minecraft/logs/fml-client-latest.log"),
-                new File(homedir + "/AppData/Roaming/.minecraft/logs/latest.log"),
-                new File(homedir + "/.lunarclient/offline/1.7/logs/latest.log"),
-                new File(homedir + "/.lunarclient/offline/1.8/logs/latest.log"),
-                new File(homedir + "/.lunarclient/offline/1.8.9/logs/latest.log"),
-                new File(homedir + "/.lunarclient/offline/multiver/logs/latest.log")
+                new File(homeDir + "/Library/Application Support/minecraft/logs/blclient/minecraft/latest.log"),
+                new File(homeDir + "/Library/Application Support/minecraft/logs/latest.log"),
+                new File(homeDir + "/Library/Application Support/.pvplounge/logs/latest.log"),
+                new File(homeDir + "/Library/Application Support/minecraft/logs/fml-client-latest.log"),
+                new File(homeDir + "/Library/Application Support/minecraft/logs/latest.log"),
+                new File(homeDir + "/AppData/Roaming/.minecraft/logs/blclient/minecraft/latest.log"),
+                new File(homeDir + "/AppData/Roaming/.minecraft/logs/latest.log"),
+                new File(homeDir + "/AppData/Roaming/.pvplounge/logs/latest.log"),
+                new File(homeDir + "/AppData/Roaming/.minecraft/logs/fml-client-latest.log"),
+                new File(homeDir + "/AppData/Roaming/.minecraft/logs/latest.log"),
+                new File(homeDir + "/.lunarclient/offline/1.7/logs/latest.log"),
+                new File(homeDir + "/.lunarclient/offline/1.8/logs/latest.log"),
+                new File(homeDir + "/.lunarclient/offline/1.8.9/logs/latest.log"),
+                new File(homeDir + "/.lunarclient/offline/multiver/logs/latest.log")
         );
 
         files.sort((f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified()));

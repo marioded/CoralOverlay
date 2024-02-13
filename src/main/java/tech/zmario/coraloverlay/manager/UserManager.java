@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,7 +35,9 @@ public class UserManager {
             .build();
 
     public UserManager() {
-        this.httpClient = HttpClient.newHttpClient();
+        this.httpClient = HttpClient.newBuilder()
+                .connectTimeout(Duration.ofSeconds(5))
+                .build();
     }
 
     public CompletableFuture<BedWarsUser> getUser(String username) {
@@ -42,8 +45,12 @@ public class UserManager {
 
         CoralOverlay.LOGGER.info(() -> "Getting user " + username);
 
-        if (userCache.asMap().containsKey(username))
+        if (userCache.asMap().containsKey(username)) {
+            CoralOverlay.LOGGER.info(() -> "User " + username + " found in cache");
             return CompletableFuture.completedFuture(userCache.getIfPresent(username));
+        }
+
+        CoralOverlay.LOGGER.info(() -> "User " + username + " not found in cache");
 
         return makeRequest(String.format(USER_ENDPOINT, username))
                 .exceptionally(throwable -> {
@@ -63,7 +70,12 @@ public class UserManager {
     }
 
     private CompletableFuture<HttpResponse<String>> makeRequest(String format) {
-        return httpClient.sendAsync(HttpRequest.newBuilder().uri(URI.create(format)).build(),
+        CoralOverlay.LOGGER.info(() -> "Making request to " + format);
+
+        // check if the http client is alive
+
+        return httpClient.sendAsync(HttpRequest.newBuilder().uri(URI.create(format))
+                        .timeout(Duration.ofSeconds(5)).build(),
                 HttpResponse.BodyHandlers.ofString());
     }
 
