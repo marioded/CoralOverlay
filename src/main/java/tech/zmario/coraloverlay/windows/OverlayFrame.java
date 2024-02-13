@@ -135,30 +135,6 @@ public class OverlayFrame extends JFrame {
         for (Component component : components) super.add(component);
     }
 
-    public JPanel getTagPanel() {
-        return tagPanel;
-    }
-
-    public JPanel getStreakPanel() {
-        return streakPanel;
-    }
-
-    public JPanel getFkdrPanel() {
-        return fkdrPanel;
-    }
-
-    public JPanel getWlrPanel() {
-        return wlrPanel;
-    }
-
-    public JPanel getFinalsPanel() {
-        return finalsPanel;
-    }
-
-    public JPanel getWinsPanel() {
-        return winsPanel;
-    }
-
     public void addPlayer(String playerName) {
         if (playerName.isEmpty() || playerName.isBlank() || userManager.getPlayerNames().contains(playerName) ||
                 playerName.equalsIgnoreCase(coralOverlay.getPlayerName())) return;
@@ -181,7 +157,7 @@ public class OverlayFrame extends JFrame {
             Color textColor = RankColor.USER.getColor();
 
             playersPanel.add(TextUtils.label(name, 0, 0, 21, rankColor.getColor()));
-            tagPanel.add(TextUtils.label("[" + bedWarsUser.getLevel() + "S]", 0, 0, 21, levelColor));
+            tagPanel.add(TextUtils.label("[" + bedWarsUser.getLevel() + "]", 0, 0, 21, levelColor));
             streakPanel.add(TextUtils.label(bedWarsUser.getWinStreak() + "", 0, 0, 21, textColor));
             fkdrPanel.add(TextUtils.label(fkdr + "", 0, 0, 21, TextUtils.getFKDRColor(fkdr)));
             wlrPanel.add(TextUtils.label(wlr + "", 0, 0, 21, TextUtils.getWLRColor(wlr)));

@@ -54,11 +54,12 @@ public class LogsReaderRunnable implements Runnable {
 
         try {
             List<String> lines = Files.readAllLines(logsFilePath, StandardCharsets.ISO_8859_1)
-                    .stream().filter(line -> line != null && !line.isEmpty() && !line.isBlank())
+                    .stream()
+                    .filter(line -> line != null && line.contains("Client thread/INFO"))
                     .collect(Collectors.toList());
 
             Collections.reverse(lines);
-            lines = lines.subList(0, Math.min(lines.size(), 3));
+            lines = lines.subList(0, Math.min(lines.size(), 4));
 
             for (String line : lines) {
                 if (line.isEmpty() || line.isBlank()) continue;
@@ -77,7 +78,7 @@ public class LogsReaderRunnable implements Runnable {
                 if (line.isEmpty() || line.isBlank()) continue;
                 String owner = coralOverlay.getPlayerName();
 
-                if (line.contains("è uscito (") || line.endsWith("FINAL KILL!")) {
+                if (line.contains("è uscito (") || line.endsWith("FINAL KILL!") || line.endsWith(" è uscito dal gioco")) {
                     String playerName = args[0];
 
                     overlayFrame.removePlayer(playerName);
