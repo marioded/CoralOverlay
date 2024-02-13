@@ -59,7 +59,7 @@ public class LogsReaderRunnable implements Runnable {
                     .collect(Collectors.toList());
 
             Collections.reverse(lines);
-            lines = lines.subList(0, Math.min(lines.size(), 4));
+            lines = lines.subList(0, Math.min(lines.size(), 6));
 
             for (String line : lines) {
                 if (line.isEmpty() || line.isBlank()) continue;
