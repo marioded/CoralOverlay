@@ -36,7 +36,7 @@ public class Application {
             return thread;
         });
 
-        CoralOverlay.LOGGER.info("Starting CoralOverlay for " + name);
+        CoralOverlay.LOGGER.info(() -> "Starting CoralOverlay for " + name + "...");
 
         executor.submit(() -> CoralOverlay.create(name));
 

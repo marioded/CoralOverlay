@@ -40,18 +40,18 @@ public class UserManager {
     public CompletableFuture<BedWarsUser> getUser(String username) {
         userCache.cleanUp();
 
-        CoralOverlay.LOGGER.info("Getting user " + username);
+        CoralOverlay.LOGGER.info(() -> "Getting user " + username);
 
         if (userCache.asMap().containsKey(username))
             return CompletableFuture.completedFuture(userCache.getIfPresent(username));
 
         return makeRequest(String.format(USER_ENDPOINT, username))
                 .exceptionally(throwable -> {
-                    CoralOverlay.LOGGER.log(Level.SEVERE, "Failed to get user " + username, throwable);
+                    CoralOverlay.LOGGER.log(Level.SEVERE, String.format("Error while getting user %s", username), throwable);
                     return null;
                 })
                 .thenApply(response -> {
-                    CoralOverlay.LOGGER.info("Got user " + username + " with status code " + response.statusCode());
+                    CoralOverlay.LOGGER.info(() -> "Got user " + username + " with status code " + response.statusCode());
 
                     BedWarsUser user = response.statusCode() != 200 ?
                             new BedWarsUser() :
@@ -81,7 +81,7 @@ public class UserManager {
             else
                 prefix = jsonObject.get("vipBedwars");
 
-            CoralOverlay.LOGGER.info("Got prefix " + prefix.getAsString() + " for " + userName);
+            CoralOverlay.LOGGER.info(() -> "Got prefix " + prefix.getAsString() + " for " + userName);
             return prefix.getAsString().split("\\.", 3)[2];
         });
     }
