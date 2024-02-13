@@ -17,7 +17,8 @@ quindi non preoccuparti se non sei un esperto!
 
 ## Installazione
 
-1. Assicurati di avere Java 11.0.3 o superiore e scarica il file jar/exe dai [releases (clicca qui)](https://github.com/zMario34/coraloverlay/releases)
+1. Assicurati di avere Java 11.0.3 o superiore e scarica il file jar/exe
+   dai [releases (clicca qui)](https://github.com/zMario34/coraloverlay/releases)
 2. Avvia il file e inserisci il tuo nome utente quando richiesto
 3. Ora entra in una partita.
 4. Apri la chat, **clicca spazio** e poi **TAB** per poter rilevare i giocatori in partita.
