@@ -140,14 +140,14 @@ public class OverlayFrame extends JFrame {
                 playerName.equalsIgnoreCase(coralOverlay.getPlayerName())) return;
 
         try {
-            Thread.sleep(35L);
+            Thread.sleep(60L);
         } catch (InterruptedException e) {
         }
 
         userManager.getPlayerNames().add(playerName);
         userManager.getUser(playerName).thenAccept(bedWarsUser -> userManager.getPrefix(playerName).thenAccept(prefix -> {
-            double fkdr = Math.round((double) bedWarsUser.getFinalKills() / (double) bedWarsUser.getFinalDeaths() * 100.0) / 100.0;
-            double wlr = Math.round((double) bedWarsUser.getWins() / (double) bedWarsUser.getPlayed() * 100.0) / 100.0;
+            double fkdr = Math.round((bedWarsUser.getFinalKills() * 100.0 / bedWarsUser.getFinalDeaths())) / 100.0;
+            double wlr = Math.round((double) bedWarsUser.getWins() / (double) bedWarsUser.getFinalDeaths() * 100.0) / 100.0;
             RankColor rankColor = TextUtils.colorizeRank(prefix);
             Color levelColor = TextUtils.colorizeLevel(bedWarsUser.getLevel());
 
@@ -187,19 +187,21 @@ public class OverlayFrame extends JFrame {
     }
 
     public void clearAll() {
-        for (int i = 1; i < playersPanel.getComponents().length; i++) {
-            playersPanel.remove(i);
-            tagPanel.remove(i);
-            streakPanel.remove(i);
-            fkdrPanel.remove(i);
-            wlrPanel.remove(i);
-            finalsPanel.remove(i);
-            winsPanel.remove(i);
-        }
+        clearPanel(playersPanel, tagPanel, streakPanel, fkdrPanel, wlrPanel, finalsPanel, winsPanel);
 
         updatePanel(playersPanel, tagPanel, streakPanel, fkdrPanel, wlrPanel, finalsPanel, winsPanel);
 
         userManager.getPlayerNames().clear();
+    }
+
+    private void clearPanel(JPanel... panels) {
+        for (JPanel panel : panels) {
+            for (Component component : panel.getComponents()) {
+                if (component.getName() != null && component.getName().equals("title-label")) continue;
+
+                panel.remove(component);
+            }
+        }
     }
 
     private void updatePanel(JPanel... panels) {

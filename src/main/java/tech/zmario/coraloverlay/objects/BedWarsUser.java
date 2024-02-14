@@ -5,22 +5,22 @@ import com.google.gson.annotations.SerializedName;
 public class BedWarsUser {
 
     @SerializedName("final_kills")
-    private int finalKills;
+    private int finalKills = 0;
 
     @SerializedName("final_deaths")
-    private int finalDeaths;
+    private int finalDeaths = 0;
 
     @SerializedName("wins")
-    private int wins;
+    private int wins = 0;
 
     @SerializedName("winstreak")
-    private int winStreak;
+    private int winStreak = 0;
 
     @SerializedName("played")
-    private int played;
+    private int played = 0;
 
     @SerializedName("level")
-    private int level;
+    private int level = 0;
 
     public int getFinalKills() {
         return finalKills;
