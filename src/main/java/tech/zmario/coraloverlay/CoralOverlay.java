@@ -10,11 +10,10 @@ import java.util.logging.Logger;
 public class CoralOverlay extends JFrame {
 
     public static final Logger LOGGER = Logger.getLogger("CoralOverlay");
-
-    private final String playerName;
-
     private final OverlayFrame overlayFrame;
     private final UserManager userManager;
+    private final String playerName;
+    private String disguisedName;
 
     private CoralOverlay(String playerName) {
         this.userManager = new UserManager();
@@ -53,6 +52,10 @@ public class CoralOverlay extends JFrame {
     }
 
     public String getPlayerName() {
-        return playerName;
+        return disguisedName != null ? disguisedName : playerName;
+    }
+
+    public void setDisguisedName(String disguisedName) {
+        this.disguisedName = disguisedName;
     }
 }

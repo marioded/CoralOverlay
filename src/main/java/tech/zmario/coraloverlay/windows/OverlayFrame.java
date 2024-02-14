@@ -216,4 +216,8 @@ public class OverlayFrame extends JFrame {
 
         maxPlayers = newPlayers;
     }
+
+    public void setDisguisedName(String disguisedName) {
+        coralOverlay.setDisguisedName(disguisedName);
+    }
 }

@@ -100,6 +100,12 @@ public class LogsReaderRunnable implements Runnable {
 
                         overlayFrame.addPlayer(playerName);
                     }
+                } else if (line.startsWith("Sei entrato in modalità disguise sotto il nome di: ")) {
+                    String playerName = args[args.length - 1].replace("!", "");
+
+                    overlayFrame.setDisguisedName(playerName);
+                } else if (line.equals("Sei uscito dalla modalità disguise!")) {
+                    overlayFrame.setDisguisedName(null);
                 } else if (line.contains("è entrato nella lobby")) overlayFrame.clearAll();
                 else continue;
 

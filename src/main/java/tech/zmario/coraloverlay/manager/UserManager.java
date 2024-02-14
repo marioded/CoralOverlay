@@ -24,7 +24,7 @@ import java.util.logging.Level;
 public class UserManager {
 
     private static final String USER_ENDPOINT = "https://api.coralmc.it/api/user/%s";
-    private static final String INFO_ENDPOINT = "https://api.coralmc.it/api/user/%s/infos/";
+    private static final String INFO_ENDPOINT = USER_ENDPOINT + "/infos/";
     private static final Gson GSON = new Gson();
 
     private final HttpClient httpClient;
