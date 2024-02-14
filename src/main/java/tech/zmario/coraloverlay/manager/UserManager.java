@@ -88,10 +88,14 @@ public class UserManager {
             JsonObject jsonObject = jsonElement.getAsJsonObject();
 
             JsonElement prefix;
-            if (!jsonObject.has("vipBedwars"))
+            String globalRank = jsonObject.get("globalRank").getAsString();
+            JsonElement bedwarsVipPrefix = jsonObject.get("vipBedwars");
+
+            if (globalRank.equals("prefix.0.&7") && bedwarsVipPrefix != null) {
+                prefix = bedwarsVipPrefix;
+            } else {
                 prefix = jsonObject.get("globalRank");
-            else
-                prefix = jsonObject.get("vipBedwars");
+            }
 
             CoralOverlay.LOGGER.info(() -> "Got prefix " + prefix.getAsString() + " for " + userName);
             return prefix.getAsString().split("\\.", 3)[2];
