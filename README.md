@@ -1,7 +1,7 @@
 # <img src="src/main/resources/coral.png" width="32px"> CoralOverlay
 
-Il primo overlay per CoralMC è finalmente disponibile! Questo overlay ti permette di vedere i giocatori in disguise e le
-loro statistiche in tempo reale. L'overlay è stato creato con l'obiettivo di essere semplice e intuitivo da usare,
+Il primo overlay per le BedWars di CoralMC è finalmente disponibile! Questo overlay ti permette di vedere i giocatori in disguise e le
+loro statistiche appena entrerai in partita. Tutto ciò è stato creato con l'obiettivo di essere semplice e intuitivo da usare,
 quindi non preoccuparti se non sei un esperto!
 
 ## Funzionalità
